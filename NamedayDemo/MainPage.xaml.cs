@@ -25,7 +25,7 @@ namespace NamedayDemo
     public sealed partial class MainPage : Page
     {
         Boolean Edit = false;
-        Boolean New = false;
+        //Boolean New = false;
 
         public MainPage()
         {
@@ -77,9 +77,8 @@ namespace NamedayDemo
             if (noteName != null && noteName != "")
             {
                 Debug.WriteLine("A new Note has been Created.");
-                txtNoteName.Text = noteName;
                 txtNoteBody.Text = "";
-                New = true;
+                //New = true;
                 GetNewNote(noteName);
             }
         }

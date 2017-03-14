@@ -19,6 +19,11 @@
     </Page.DataContext>
     <Page.TopAppBar>
         <CommandBar>
+            <CommandBar.Content>
+                <AppBarButton x:Name="apbNoteName" Content="{Binding Greeting, Mode=TwoWay}" Width="Auto" />
+                <!--<TextBox x:Name="txtNoteName" HorizontalAlignment="Left" Text="{Binding Greeting, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="533" Margin="0,0,0,15"/>-->
+
+            </CommandBar.Content>
             <AppBarButton x:Name="btnNewNote" Label="btnNewNote_Click" Icon="Add" Click="btnNewNote_Click"/>
             <AppBarButton x:Name="btnEditNote" Label="Edit" Icon="Edit" Click="btnEditNote_Click"/>
             <AppBarButton x:Name="btnSave" Label="Save" Icon="Save" Click="btnSave_Click"/>
@@ -63,7 +68,6 @@
                 <RowDefinition  Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Margin="0,-31,0,31">
-                <TextBox x:Name="txtNoteName" HorizontalAlignment="Left" Text="{Binding Greeting, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="533" Margin="0,0,0,15"/>
                 <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" Text="{Binding BodyContent, Mode=TwoWay}" Height="393"  VerticalAlignment="Top" />
             </StackPanel>
         </Grid>
