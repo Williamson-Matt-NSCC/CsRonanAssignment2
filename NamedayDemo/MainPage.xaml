@@ -19,8 +19,9 @@
     </Page.DataContext>
     <Page.TopAppBar>
         <CommandBar>
-            <AppBarButton x:Name="btnNewNote" Label="NewNote" Icon="Add" Click="NewNote"/>
-            <AppBarButton x:Name="btnEditNote" Label="Edit" Icon="Edit" Click="EditNote"/>
+            <AppBarButton x:Name="btnNewNote" Label="btnNewNote_Click" Icon="Add" Click="btnNewNote_Click"/>
+            <AppBarButton x:Name="btnEditNote" Label="Edit" Icon="Edit" Click="btnEditNote_Click"/>
+            <AppBarButton x:Name="btnSave" Label="Save" Icon="Save" Click="btnSave_Click"/>
         </CommandBar>
     </Page.TopAppBar>
     <Page.BottomAppBar>

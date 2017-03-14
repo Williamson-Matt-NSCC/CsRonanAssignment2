@@ -43,8 +43,6 @@ namespace NamedayDemo
 
         private static NoteModel _selectedNote;
 
-        private string _filter;
-
         public event PropertyChangedEventHandler PropertyChanged;
         
         public NoteModel SelectedNote
@@ -110,6 +108,8 @@ namespace NamedayDemo
             fillList();
         }
 
+        ////combined this functionality into the perform note filtering
+
         //public string Filter
         //{
         //    get
@@ -127,62 +127,6 @@ namespace NamedayDemo
         //            new PropertyChangedEventArgs(nameof(Filter)));
         //        //PerformFiltering();
         //        PerformNoteFiltering();
-        //    }
-        //}
-
-        //private void PerformFiltering()
-        //{
-        //    if (_filter == null)
-        //    {
-        //        _filter = "";
-        //    }
-        //    var lowerCaseFilter = Filter.ToLowerInvariant().Trim();
-        //    var result = _allNamedays.Where(
-        //        d => d.NamesAsString.ToLowerInvariant()
-        //                .Contains(lowerCaseFilter)).ToList();
-        //    var toRemove = Namedays.Except(result).ToList();
-        //    foreach (var x in toRemove)
-        //    {
-        //        Namedays.Remove(x);
-        //    }
-        //    // Add back in the correct order.
-        //    var resultcount = result.Count;
-        //    for (int i = 0; i < resultcount; i++)
-        //    {
-        //        var resultItem = result[i];
-        //        if (i+1 > Namedays.Count || !Namedays[i].Equals(resultItem))
-        //        {
-        //            Namedays.Insert(i, resultItem);
-        //        }
-        //    }
-        //}
-
-
-
-        //private void PerformFiltering()
-        //{
-        //    if (_filter == null)
-        //    {
-        //        _filter = "";
-        //    }
-        //    var lowerCaseFilter = Filter.ToLowerInvariant().Trim();
-        //    var result = _allNotes.Where(
-        //        d => d.NoteNameAsString.ToLowerInvariant()
-        //                .Contains(lowerCaseFilter)).ToList();
-        //    var toRemove = Notes.Except(result).ToList();
-        //    foreach (var x in toRemove)
-        //    {
-        //        Notes.Remove(x);
-        //    }
-        //    // Add back in the correct order.
-        //    var resultcount = result.Count;
-        //    for (int i = 0; i < resultcount; i++)
-        //    {
-        //        var resultItem = result[i];
-        //        if (i + 1 > Notes.Count || !Notes[i].Equals(resultItem))
-        //        {
-        //            Notes.Insert(i, resultItem);
-        //        }
         //    }
         //}
 
@@ -327,11 +271,5 @@ namespace NamedayDemo
                 }
             }
         }
-
-        //private async void LoadData()
-        //{
-        //    _allNamedays = await Repository.GetAllNamedaysAsync();
-        //    PerformFiltering();
-        //}
     }
 }

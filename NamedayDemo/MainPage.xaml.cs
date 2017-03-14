@@ -35,48 +35,6 @@ namespace NamedayDemo
             txtNoteBody.IsEnabled = false;
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            Debug.WriteLine("App Bar Button");
-        }
-
-        private async void NewNote(object sender, RoutedEventArgs e)
-        {
-            string noteName = await ShowMessageBoxAsync("Name of New Note");
-
-            if (noteName != null && noteName != "")
-            {
-                Debug.WriteLine("A new Note has been created.");
-                txtNoteName.Text = noteName;
-                txtNoteBody.Text = "";
-                New = true;
-                GetNewNote(noteName);
-            }
-        }
-
-        private static void GetNewNote(string newNoteName)
-        {
-            MainPageData.NewNote(newNoteName, "");
-        }
-
-        private void EditNote(object sender, RoutedEventArgs e)
-        {
-            if (Edit) //in edit mode
-            {
-                Edit = false;
-                txtNoteBody.IsEnabled = false;
-                Debug.WriteLine("edit mode : false");
-                
-            }
-            else //not in edit mode
-            {
-                Edit = true;
-                txtNoteBody.IsEnabled = true;
-                Debug.WriteLine("edit mode : true");
-            }
-        }
-
         private async Task<string> ShowMessageBoxAsync(string messageBoxTitle)
         {
             TextBox textBox = new TextBox();
@@ -99,6 +57,55 @@ namespace NamedayDemo
                 return "";
             }
 
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Debug.WriteLine("App Bar Button");
+        }
+
+        private static void GetNewNote(string newNoteName)
+        {
+            MainPageData.NewNote(newNoteName, "");
+        }
+
+        private async void btnNewNote_Click(object sender, RoutedEventArgs e)
+        {
+            string noteName = await ShowMessageBoxAsync("Name of New Note");
+
+            if (noteName != null && noteName != "")
+            {
+                Debug.WriteLine("A new Note has been Created.");
+                txtNoteName.Text = noteName;
+                txtNoteBody.Text = "";
+                New = true;
+                GetNewNote(noteName);
+            }
+        }
+
+        private void btnEditNote_Click(object sender, RoutedEventArgs e)
+        {
+            if (Edit) //in edit mode
+            {
+                Edit = false;
+                txtNoteBody.IsEnabled = false;
+                Debug.WriteLine("edit mode : false");
+                
+            }
+            else //not in edit mode
+            {
+                Edit = true;
+                txtNoteBody.IsEnabled = true;
+                Debug.WriteLine("edit mode : true");
+            }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageData.Save(txtNoteBody.Text);
+
+            Debug.WriteLine("your Note has been Saved");
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
