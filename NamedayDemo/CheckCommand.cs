@@ -12,6 +12,7 @@ namespace NamedayDemo
     {
         public event EventHandler CanExecuteChanged;
         private MainPageData mpd;
+
         public CheckCommand(MainPageData mpd)
         {
             this.mpd = mpd;
@@ -24,8 +25,9 @@ namespace NamedayDemo
 
         public void Execute(object parameter)
         {
-            Debug.WriteLine("CHECK!!!");
+            Debug.WriteLine("check Complete");
         }
+
         public void FireCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);

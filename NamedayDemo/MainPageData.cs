@@ -18,6 +18,7 @@ namespace NamedayDemo
         // Defaults to "Hello" if not set
         public string Greeting { get; set; } = "please select a note";
         public string BodyContent { get; set; } = "please select a note";
+
         // List of NamedayModel classes
 
         public ObservableCollection<NamedayModel> Namedays
@@ -75,6 +76,8 @@ namespace NamedayDemo
                     new PropertyChangedEventArgs("FilterNotes"));
 
                 CheckCommand.FireCanExecuteChanged();
+
+                
             }
         }
 
@@ -107,25 +110,25 @@ namespace NamedayDemo
             fillList();
         }
 
-        public string Filter
-        {
-            get
-            {
-                return _filter;
-            }
-            set
-            {
-                if (value == _filter)
-                {
-                    return;
-                }
-                _filter = value;
-                PropertyChanged?.Invoke(this,
-                    new PropertyChangedEventArgs(nameof(Filter)));
-                //PerformFiltering();
-                PerformNoteFiltering();
-            }
-        }
+        //public string Filter
+        //{
+        //    get
+        //    {
+        //        return _filter;
+        //    }
+        //    set
+        //    {
+        //        if (value == _filter)
+        //        {
+        //            return;
+        //        }
+        //        _filter = value;
+        //        PropertyChanged?.Invoke(this,
+        //            new PropertyChangedEventArgs(nameof(Filter)));
+        //        //PerformFiltering();
+        //        PerformNoteFiltering();
+        //    }
+        //}
 
         //private void PerformFiltering()
         //{
@@ -154,32 +157,34 @@ namespace NamedayDemo
         //    }
         //}
 
-        private void PerformNoteFiltering()
-        {
-            if (_filter == null)
-            {
-                _filter = "";
-            }
-            var lowerCaseFilter = Filter.ToLowerInvariant().Trim();
-            var result = _allNotes.Where(
-                d => d.NoteNameAsString.ToLowerInvariant()
-                        .Contains(lowerCaseFilter)).ToList();
-            var toRemove = Notes.Except(result).ToList();
-            foreach (var x in toRemove)
-            {
-                Notes.Remove(x);
-            }
-            // Add back in the correct order.
-            var resultcount = result.Count;
-            for (int i = 0; i < resultcount; i++)
-            {
-                var resultItem = result[i];
-                if (i + 1 > Notes.Count || !Notes[i].Equals(resultItem))
-                {
-                    Notes.Insert(i, resultItem);
-                }
-            }
-        }
+
+
+        //private void PerformFiltering()
+        //{
+        //    if (_filter == null)
+        //    {
+        //        _filter = "";
+        //    }
+        //    var lowerCaseFilter = Filter.ToLowerInvariant().Trim();
+        //    var result = _allNotes.Where(
+        //        d => d.NoteNameAsString.ToLowerInvariant()
+        //                .Contains(lowerCaseFilter)).ToList();
+        //    var toRemove = Notes.Except(result).ToList();
+        //    foreach (var x in toRemove)
+        //    {
+        //        Notes.Remove(x);
+        //    }
+        //    // Add back in the correct order.
+        //    var resultcount = result.Count;
+        //    for (int i = 0; i < resultcount; i++)
+        //    {
+        //        var resultItem = result[i];
+        //        if (i + 1 > Notes.Count || !Notes[i].Equals(resultItem))
+        //        {
+        //            Notes.Insert(i, resultItem);
+        //        }
+        //    }
+        //}
 
         public async static void Save(string noteBody)
         {
@@ -289,7 +294,7 @@ namespace NamedayDemo
             }
         }
 
-        public static void PerformFiltering(string Filter)
+        public static void PerformNoteFiltering(string Filter)
         {
             if (Filter.Trim() == null || Filter.Equals(""))
             {

@@ -48,8 +48,7 @@
                 <RowDefinition />
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,52" PlaceholderText="Enter search term here..." Grid.ColumnSpan="2"/>
-            <!--<ListView x:Name="listView" ItemTemplate="{StaticResource NamedayModelTemplate}" ItemsSource="{Binding Namedays}" Grid.Row="1" SelectedItem="{Binding SelectedNameday, Mode=TwoWay}"/>-->
+            <TextBox x:Name="txtSearch" TextWrapping="Wrap" TextChanged="txtSearch_TextChanged"  Text="{Binding Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,52" PlaceholderText="Enter search term here..." Grid.ColumnSpan="2"/>
             <ListView x:Name="listView" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" ItemsSource="{Binding FilteredNotes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNote, Mode=TwoWay}" ItemTemplate="{StaticResource NotesTemplate2}" />
         </Grid>
         <!--<Grid Grid.Column="1">
@@ -63,8 +62,8 @@
                 <RowDefinition  Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Margin="0,-31,0,31">
-                <TextBox x:Name="txtNoteName" HorizontalAlignment="Left" Text="{Binding SelectedNote.NoteName, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="533" Margin="0,0,0,15"/>
-                <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" Text="{Binding SelectedNote.NoteBody, Mode=TwoWay}" Height="393"  VerticalAlignment="Top" />
+                <TextBox x:Name="txtNoteName" HorizontalAlignment="Left" Text="{Binding Greeting, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="533" Margin="0,0,0,15"/>
+                <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" Text="{Binding BodyContent, Mode=TwoWay}" Height="393"  VerticalAlignment="Top" />
             </StackPanel>
         </Grid>
 

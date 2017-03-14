@@ -100,5 +100,19 @@ namespace NamedayDemo
             }
 
         }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string tempText;
+
+            if ((tempText = txtSearch.Text) != "")//if the filter isnt empty...
+            {
+                MainPageData.PerformNoteFiltering(tempText);
+            }
+            else //if it is empty
+            {
+                MainPageData.ShowAll();
+            }
+        }
     }
 }
