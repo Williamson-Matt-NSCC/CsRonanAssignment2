@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,21 @@ namespace NamedayDemo
         static Windows.Storage.StorageFolder storageFolder = 
             Windows.Storage.ApplicationData.Current.LocalFolder;
 
-        // Defaults to "Hello" if not set
+        public string NoteTitle
+        {
+            get
+            {
+                return " Current Note: " + Greeting;
+            }
+
+            set
+            {
+
+            }
+        }
+
         public string Greeting { get; set; } = "please select a note";
+
         public string BodyContent { get; set; } = "please select a note";
 
         // List of NamedayModel classes
@@ -56,13 +70,16 @@ namespace NamedayDemo
                 _selectedNote = value;
                 if (value == null)
                 {
-                    Greeting = "Please select a note, or create one from the bar above";
+                    Greeting = "Please select a note, or create one from the menu above";
                 }
                 else
                 {
                     Greeting = _selectedNote.NoteName;
                     BodyContent = _selectedNote.NoteBody;
                 }
+                
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs("NoteTitle"));
 
                 PropertyChanged?.Invoke(this,
                     new PropertyChangedEventArgs("Greeting"));
@@ -194,25 +211,15 @@ namespace NamedayDemo
 
         public async static void DeleteNote()
         {
-            int noteNumber = _selectedNote.NoteNumber;
             string noteName = _selectedNote.NoteName;
 
-            noteName = noteName + ".txt";
-
-            StorageFile tempFile = await storageFolder.GetFileAsync(noteName);
+            StorageFile tempFile = await storageFolder.GetFileAsync(noteName + ".txt");
             await tempFile.DeleteAsync();
 
-            Notes.RemoveAt(noteNumber);
-            FilteredNotes.RemoveAt(noteNumber);
-        }
-
-        public static void ShowAll()
-        {
-            FilteredNotes.Clear();
-            foreach (NoteModel note in Notes)
-            {
-                FilteredNotes.Add(note);
-            }
+            //delete that note from Notes and FilteredNotes
+            // got this line from http://stackoverflow.com/questions/20403162/remove-one-item-in-observablecollection
+            Notes.Remove(Notes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
+            FilteredNotes.Remove(FilteredNotes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
         }
 
         private async static void fillList()
@@ -235,6 +242,15 @@ namespace NamedayDemo
                 {
                     string error = err.Message;
                 }
+            }
+        }
+
+        public static void ShowAll()
+        {
+            FilteredNotes.Clear();
+            foreach (NoteModel note in Notes)
+            {
+                FilteredNotes.Add(note);
             }
         }
 

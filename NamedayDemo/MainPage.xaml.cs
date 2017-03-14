@@ -35,11 +35,10 @@ namespace NamedayDemo
             txtNoteBody.IsEnabled = false;
         }
 
-        private async Task<string> ShowMessageBoxAsync(string messageBoxTitle)
+        private async Task<string> AskTitleMessageBoxAsync(string messageBoxTitle)
         {
             TextBox textBox = new TextBox();
-            textBox.AcceptsReturn = true;
-            textBox.Height = 42;
+            textBox.Height = 32;
 
             ContentDialog contentDialog= new ContentDialog();
             contentDialog.Title = messageBoxTitle;
@@ -59,6 +58,43 @@ namespace NamedayDemo
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageToAskUser">the operation that you are asking the user to confirm</param>
+        /// <returns>boolean value</returns>
+        private async Task<bool> ConfirmMessageBoxAsync(string messageToAskUser)
+        {
+            ContentDialog contentDialog = new ContentDialog();
+            contentDialog.Title = "Are you sure you would like to " + messageToAskUser + "?";
+            contentDialog.IsSecondaryButtonEnabled = true;
+            contentDialog.PrimaryButtonText = "Yes, " + messageToAskUser;
+            contentDialog.SecondaryButtonText = "Cancel";
+
+            if (await contentDialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string tempText;
+
+            if ((tempText = txtSearch.Text) != "")//if the filter isnt empty...
+            {
+                MainPageData.PerformNoteFiltering(tempText);
+            }
+            else //if it is empty
+            {
+                MainPageData.ShowAll();
+            }
+        }
+
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -72,7 +108,7 @@ namespace NamedayDemo
 
         private async void btnNewNote_Click(object sender, RoutedEventArgs e)
         {
-            string noteName = await ShowMessageBoxAsync("Name of New Note");
+            string noteName = await AskTitleMessageBoxAsync("Name of New Note");
 
             if (noteName != null && noteName != "")
             {
@@ -107,17 +143,17 @@ namespace NamedayDemo
             Debug.WriteLine("your Note has been Saved");
         }
 
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            string tempText;
-
-            if ((tempText = txtSearch.Text) != "")//if the filter isnt empty...
+            if (await ConfirmMessageBoxAsync("Delete this Note"))
             {
-                MainPageData.PerformNoteFiltering(tempText);
+                Debug.WriteLine("Note Deleted");
+                MainPageData.DeleteNote();
             }
-            else //if it is empty
+            else
             {
-                MainPageData.ShowAll();
+                Debug.WriteLine("Note not Deleted");
+                //handles canceled delete
             }
         }
     }
