@@ -25,16 +25,22 @@ namespace NamedayDemo
     public sealed partial class MainPage : Page
     {
         Boolean Edit = false;
-        //Boolean New = false;
+        private string DeselectedTitleValue = " Current Note: Please select a note, or create one from the menu above";
+        private string DeselectedBodyValue = "please select a note";
 
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             //btnSave.IsEnabled = false;
             //Title.IsEnabled = false;
             txtNoteBody.IsEnabled = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageBoxTitle"></param>
+        /// <returns></returns>
         private async Task<string> AskTitleMessageBoxAsync(string messageBoxTitle)
         {
             TextBox textBox = new TextBox();
@@ -46,7 +52,6 @@ namespace NamedayDemo
             contentDialog.PrimaryButtonText = "OK";
             contentDialog.SecondaryButtonText = "Cancel";
             contentDialog.Content = textBox;
-
             if (await contentDialog.ShowAsync() == ContentDialogResult.Primary)
             {
                 return textBox.Text;
@@ -81,6 +86,22 @@ namespace NamedayDemo
             }
         }
 
+        /// <summary>
+        /// displays a message to the user
+        /// </summary>
+        /// <param name="messageToAskUser">the operation that you are asking the user to confirm</param>
+        /// <returns>boolean value</returns>
+        private async Task InfoMessageBoxAsync(string messageToUser)
+        {
+            ContentDialog contentDialog = new ContentDialog();
+
+            contentDialog.Title = messageToUser;
+            contentDialog.IsPrimaryButtonEnabled = true;
+            contentDialog.PrimaryButtonText = "Continue";
+
+            await contentDialog.ShowAsync();
+        }
+
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string tempText;
@@ -95,28 +116,54 @@ namespace NamedayDemo
             }
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            Debug.WriteLine("App Bar Button");
-        }
-
         private static void GetNewNote(string newNoteName)
         {
             MainPageData.NewNote(newNoteName, "");
         }
 
+        private static bool CheckForNote(String noteName)
+        {
+            return MainPageData.CheckForNote(noteName);
+        }
+
         private async void btnNewNote_Click(object sender, RoutedEventArgs e)
         {
-            string noteName = await AskTitleMessageBoxAsync("Name of New Note");
-
-            if (noteName != null && noteName != "")
+            while (true)
             {
-                Debug.WriteLine("A new Note has been Created.");
-                txtNoteBody.Text = "";
-                //New = true;
-                GetNewNote(noteName);
+                string noteName = await AskTitleMessageBoxAsync("Name of New Note");
+
+                //short circuit if statement, checks for valid name, then if it already is in the notes collection
+                if (noteName != null && noteName != "" && !CheckForNote(noteName))
+                {
+
+                    GetNewNote(noteName);
+                    Debug.WriteLine("A new Note has been Created.");
+                    txtNoteBody.Text = "";
+                    apbNoteName.Content = " Current Note: " + noteName;
+
+                    //this is the only friggin way to do this, if not, show me!!
+                    //without this line the listview doesnt update quick enough 
+                    //(because they are on separate tasks)
+                    await Task.Delay(400);
+
+                    lsvNoteList.SelectedIndex = lsvNoteList.Items.Count -1;
+
+                    //make a loseNoteFocus() to set textbox 
+                    //and title to display that there is 
+                    //no note selected
+
+                    break;
+                }
+                else if (noteName == "")
+                {
+                    break;
+                }
+                else
+                {
+                    await InfoMessageBoxAsync("The name \"" + noteName + "\" is currently in use \nPlease enter a unique name for this Note.");
+                }
             }
+            
         }
 
         private void btnEditNote_Click(object sender, RoutedEventArgs e)
@@ -148,6 +195,8 @@ namespace NamedayDemo
             if (await ConfirmMessageBoxAsync("Delete this Note"))
             {
                 Debug.WriteLine("Note Deleted");
+                apbNoteName.Content = DeselectedTitleValue;
+                txtNoteBody.Text = DeselectedBodyValue;
                 MainPageData.DeleteNote();
             }
             else
@@ -155,6 +204,16 @@ namespace NamedayDemo
                 Debug.WriteLine("Note not Deleted");
                 //handles canceled delete
             }
+        }
+
+        private async void btnAboutThisApp_Click(object sender, RoutedEventArgs e)
+        {
+            await InfoMessageBoxAsync("Asynchronous message from Matt Williamson");
+        }
+
+        private void btnExitApp_Click(object sender, RoutedEventArgs e)
+        {
+            //exit the app gracefully
         }
     }
 }

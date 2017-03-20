@@ -29,11 +29,9 @@ namespace NamedayDemo
             }
         }
 
-        public string Greeting { get; set; } = "please select a note";
+        public static string Greeting { get; set; } = "please select a note";
 
         public string BodyContent { get; set; } = "please select a note";
-
-        // List of NamedayModel classes
 
         public ObservableCollection<NamedayModel> Namedays
         {
@@ -77,7 +75,7 @@ namespace NamedayDemo
                     Greeting = _selectedNote.NoteName;
                     BodyContent = _selectedNote.NoteBody;
                 }
-                
+
                 PropertyChanged?.Invoke(this,
                     new PropertyChangedEventArgs("NoteTitle"));
 
@@ -205,6 +203,9 @@ namespace NamedayDemo
                 int Id = Convert.ToInt32(Notes.LongCount()) + 1;
                 Notes.Add(new NoteModel(Id, noteName, noteBody));
                 FilteredNotes.Add(new NoteModel(Id, noteName, noteBody));
+
+                new PropertyChangedEventArgs("Notes");
+
                 SaveNew(noteName, noteBody);
             }
         }
@@ -285,6 +286,27 @@ namespace NamedayDemo
                     if (i + 1 > FilteredNotes.Count || !FilteredNotes[i].Equals(resultItem))
                         FilteredNotes.Insert(i, resultItem);
                 }
+            }
+        }
+
+        public static bool CheckForNote(string PossibleNoteName)
+        {
+            //modified this from the DeleteNote Method, that code is borrowed and cited also
+            // source http://stackoverflow.com/questions/20403162/remove-one-item-in-observablecollection
+            try
+            {
+                if (Notes.Contains(Notes.Where(i => i.NoteName == PossibleNoteName).Single()))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                return false;
             }
         }
     }
