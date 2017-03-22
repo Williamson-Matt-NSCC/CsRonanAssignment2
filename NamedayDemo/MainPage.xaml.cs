@@ -175,22 +175,24 @@ namespace NamedayDemo
         {
             MainPageData.Save(txtNoteBody.Text);
 
-            Debug.WriteLine("your Note has been Saved");
         }
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (await ConfirmMessageBoxAsync("Delete this Note"))
+            //checks for notes, and gets confirmation from the user
+            if ((lsvNoteList.SelectedIndex != -1) &&  await ConfirmMessageBoxAsync("Delete this Note"))
             {
                 Debug.WriteLine("Note Deleted");
                 apbNoteName.Content = DeselectedTitleValue;
                 txtNoteBody.Text = DeselectedBodyValue;
+                btnDelete.IsEnabled = false;
                 MainPageData.DeleteNote();
             }
             else
             {
-                Debug.WriteLine("Note not Deleted");
+                btnDelete.IsEnabled = true;
                 //handles canceled delete
+                Debug.WriteLine("Note not Deleted");
             }
         }
 
@@ -206,7 +208,15 @@ namespace NamedayDemo
 
         private void lsvNoteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ChangeEditMode(true);
+            if (lsvNoteList.SelectedIndex != -1)
+            {
+                ChangeEditMode(true);
+                btnDelete.IsEnabled = true;
+            }
+            else
+            {
+                btnDelete.IsEnabled = false;
+            }
         }
 
         private void ChangeEditMode(bool exitEdit = false)

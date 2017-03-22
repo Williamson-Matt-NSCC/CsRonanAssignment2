@@ -31,20 +31,9 @@
             <AppBarButton x:Name="btnEditNote" Label="Edit" Icon="Edit" Click="btnEditNote_Click"/>
             <AppBarButton x:Name="btnSave" Label="Save" Icon="Save" Click="btnSave_Click" IsEnabled="False" />
             <AppBarSeparator />
-            <AppBarButton x:Name="btnDelete" Label="Delete" Icon="Delete" Click="btnDelete_Click"/>
+            <AppBarButton x:Name="btnDelete" Label="Delete" Icon="Delete" Click="btnDelete_Click" IsEnabled="False"/>
         </CommandBar>
     </Page.TopAppBar>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="About" Label="appbarbutton"/>
-            </CommandBar.SecondaryCommands>
-            <AppBarButton Icon="WebCam" Label="appbarbutton"/>
-            <AppBarSeparator d:LayoutOverrides="Width, Height"/>
-            <AppBarButton Icon="Accept" Label="appbarbutton" Command="{Binding CheckCommand, Mode=TwoWay}"/>
-        </CommandBar>
-    </Page.BottomAppBar>
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320"/>
@@ -66,7 +55,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" Text="{Binding BodyContent, Mode=TwoWay}"/>
+            <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" Text="{Binding BodyContent, Mode=TwoWay}" PlaceholderText=""/>
 
         </Grid>
 

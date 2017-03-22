@@ -159,19 +159,25 @@ namespace NamedayDemo
 
         public async static void Save(string noteBody)
         {
-            _selectedNote.NoteBody = noteBody;
-            string noteName = _selectedNote.NoteName;
-            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            var query = folder.CreateFileQuery();
-            var files = await query.GetFilesAsync();
-            var titleformat = noteName + ".txt";
+            if (_selectedNote != null)
+            {
+                _selectedNote.NoteBody = noteBody;
+                string noteName = _selectedNote.NoteName;
+                var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var query = folder.CreateFileQuery();
+                var files = await query.GetFilesAsync();
+                var titleformat = noteName + ".txt";
 
-            Windows.Storage.StorageFile sampleFile =
-                        await storageFolder.CreateFileAsync(titleformat,
-                            Windows.Storage.CreationCollisionOption.ReplaceExisting);
+                Windows.Storage.StorageFile sampleFile =
+                            await storageFolder.CreateFileAsync(titleformat,
+                                Windows.Storage.CreationCollisionOption.ReplaceExisting);
 
-            await storageFolder.GetFileAsync(titleformat);
-            await Windows.Storage.FileIO.WriteTextAsync(sampleFile, noteBody);
+                await storageFolder.GetFileAsync(titleformat);
+                await Windows.Storage.FileIO.WriteTextAsync(sampleFile, noteBody);
+
+
+                Debug.WriteLine("your Note has been Saved");
+            }
         }
 
         public async static void SaveNew(string noteName, string noteBody)
@@ -217,22 +223,25 @@ namespace NamedayDemo
                 FilteredNotes.Add(new NoteModel(Id, noteName, noteBody));
 
                 new PropertyChangedEventArgs("Notes");
-
+                
                 SaveNew(noteName, noteBody);
             }
         }
 
         public async static void DeleteNote()
         {
-            string noteName = _selectedNote.NoteName;
+            if (_selectedNote != null)
+            {
+                string noteName = _selectedNote.NoteName;
 
-            StorageFile tempFile = await storageFolder.GetFileAsync(noteName + ".txt");
-            await tempFile.DeleteAsync();
+                StorageFile tempFile = await storageFolder.GetFileAsync(noteName + ".txt");
+                await tempFile.DeleteAsync();
 
-            //delete that note from Notes and FilteredNotes
-            // got this line from http://stackoverflow.com/questions/20403162/remove-one-item-in-observablecollection
-            Notes.Remove(Notes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
-            FilteredNotes.Remove(FilteredNotes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
+                //delete that note from Notes and FilteredNotes
+                // got this line from http://stackoverflow.com/questions/20403162/remove-one-item-in-observablecollection
+                Notes.Remove(Notes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
+                FilteredNotes.Remove(FilteredNotes.Where(i => i.NoteName == _selectedNote.NoteName).Single());
+            }
         }
 
         private async static void fillList()
