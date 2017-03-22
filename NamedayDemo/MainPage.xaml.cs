@@ -168,19 +168,7 @@ namespace NamedayDemo
 
         private void btnEditNote_Click(object sender, RoutedEventArgs e)
         {
-            if (Edit) //in edit mode
-            {
-                Edit = false;
-                txtNoteBody.IsEnabled = false;
-                Debug.WriteLine("edit mode : false");
-                
-            }
-            else //not in edit mode
-            {
-                Edit = true;
-                txtNoteBody.IsEnabled = true;
-                Debug.WriteLine("edit mode : true");
-            }
+            ChangeEditMode();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -214,6 +202,32 @@ namespace NamedayDemo
         private void btnExitApp_Click(object sender, RoutedEventArgs e)
         {
             //exit the app gracefully
+        }
+
+        private void lsvNoteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangeEditMode(true);
+        }
+
+        private void ChangeEditMode(bool exitEdit = false)
+        {
+            if (Edit || exitEdit) //in edit mode
+            {
+                Edit = false;
+                txtNoteBody.IsEnabled = false;
+                btnEditNote.IsEnabled = true;
+                btnSave.IsEnabled = false;
+                Debug.WriteLine("edit mode : false");
+
+            }
+            else //not in edit mode
+            {
+                Edit = true;
+                txtNoteBody.IsEnabled = true;
+                btnEditNote.IsEnabled = false;
+                btnSave.IsEnabled = true;
+                Debug.WriteLine("edit mode : true");
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace NamedayDemo
     {
         static Windows.Storage.StorageFolder storageFolder = 
             Windows.Storage.ApplicationData.Current.LocalFolder;
+        
 
         public string NoteTitle
         {
@@ -61,7 +62,18 @@ namespace NamedayDemo
         {
             get
             {
+                if (_selectedNote == null)
+                {
+                    
+                }
+                else
+                {
+
+                }
+
+
                 return _selectedNote;
+
             }
             set
             {
