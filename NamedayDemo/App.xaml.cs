@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.EntityFrameworkCore;
 
 namespace NamedayDemo
 {
@@ -30,6 +31,11 @@ namespace NamedayDemo
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            using (var db = new EFGetStarted.UWP.BloggingContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         /// <summary>

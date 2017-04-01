@@ -239,5 +239,10 @@ namespace NamedayDemo
                 Debug.WriteLine("edit mode : true");
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

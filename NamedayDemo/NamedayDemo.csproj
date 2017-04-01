@@ -100,6 +100,12 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPageData.cs" />
+    <Compile Include="Migrations\20170401182631_MyFirstMigration.cs" />
+    <Compile Include="Migrations\20170401182631_MyFirstMigration.designer.cs">
+      <DependentUpon>20170401182631_MyFirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\BloggingContextModelSnapshot.cs" />
+    <Compile Include="model.cs" />
     <Compile Include="NamedayModel.cs" />
     <Compile Include="NoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
