@@ -56,7 +56,15 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" Text="{Binding BodyContent, Mode=TwoWay}" PlaceholderText=""/>
+            <TextBox x:Name="txtNoteBody" Visibility="Collapsed" TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" Text="{Binding BodyContent, Mode=TwoWay}" PlaceholderText=""/>
+            <RichEditBox x:Name="rebNoteBody"  TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" PlaceholderText="" />
         </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="apbBold" Icon="Bold" Click="apbBold_Click"/>
+            <AppBarButton x:Name="apbItalics" Icon="Italic"  Click="apbItalics_Click"/>
+            <AppBarButton x:Name="apbUnderline" Icon="Underline"  Click="apbUnderline_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

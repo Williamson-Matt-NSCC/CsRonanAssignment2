@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="44f1a4cc-3eff-4d55-be86-9954ca265718" Publisher="CN=NSCC Student" Version="1.0.0.0" />
+  <Identity Name="44f1a4cc-3eff-4d55-be86-9954ca265718" Publisher="CN=NSCC Student" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="44f1a4cc-3eff-4d55-be86-9954ca265718" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NamedayDemo</DisplayName>

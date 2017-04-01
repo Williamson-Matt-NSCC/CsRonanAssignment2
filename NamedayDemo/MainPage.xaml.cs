@@ -34,8 +34,12 @@ namespace NamedayDemo
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             //btnSave.IsEnabled = false;
             //Title.IsEnabled = false;
-            txtNoteBody.IsEnabled = false;
+            //txtNoteBody.IsEnabled = false;
+            rebNoteBody.IsEnabled = false;
+
             btnEditNote.IsEnabled = false;
+            rebNoteBody.Document.SetText(Windows.UI.Text.TextSetOptions.None, DeselectedBodyValue);
+            
         }
 
         /// <summary>
@@ -140,7 +144,8 @@ namespace NamedayDemo
 
                     GetNewNote(noteName);
                     Debug.WriteLine("A new Note has been Created.");
-                    txtNoteBody.Text = "";
+                    //txtNoteBody.Text = "";
+                    rebNoteBody.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
                     apbNoteName.Text = " Current Note: " + noteName;
 
                     //this is the only friggin way to do this, if not, show me!!
@@ -175,7 +180,10 @@ namespace NamedayDemo
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            MainPageData.Save(txtNoteBody.Text);
+            //MainPageData.Save(txtNoteBody.Text);
+            string value;
+            rebNoteBody.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out value);
+            MainPageData.Save(value);
 
         }
 
@@ -186,7 +194,8 @@ namespace NamedayDemo
             {
                 Debug.WriteLine("Note Deleted");
                 apbNoteName.Text = DeselectedTitleValue;
-                txtNoteBody.Text = DeselectedBodyValue;
+                //txtNoteBody.Text = DeselectedBodyValue;
+                rebNoteBody.Document.SetText(Windows.UI.Text.TextSetOptions.None, DeselectedBodyValue);
                 MainPageData.DeleteNote();
                 btnDelete.IsEnabled = false;
                 btnEditNote.IsEnabled = false;
@@ -216,6 +225,9 @@ namespace NamedayDemo
             {
                 ChangeEditMode(true);
                 btnDelete.IsEnabled = true;
+                //this line is only used with the rich editbox
+                rebNoteBody.Document.SetText(Windows.UI.Text.TextSetOptions.None, MainPageData._selectedNote.NoteBody);
+
             }
             else
             {
@@ -228,7 +240,8 @@ namespace NamedayDemo
             if (Edit || exitEdit) //in edit mode
             {
                 Edit = false;
-                txtNoteBody.IsEnabled = false;
+                //txtNoteBody.IsEnabled = false;
+                rebNoteBody.IsEnabled = false;
                 btnEditNote.IsEnabled = true;
                 btnSave.IsEnabled = false;
                 Debug.WriteLine("edit mode : false");
@@ -237,7 +250,8 @@ namespace NamedayDemo
             else //not in edit mode
             {
                 Edit = true;
-                txtNoteBody.IsEnabled = true;
+                //txtNoteBody.IsEnabled = true;
+                rebNoteBody.IsEnabled = true;
                 btnEditNote.IsEnabled = false;
                 btnSave.IsEnabled = true;
                 Debug.WriteLine("edit mode : true");
@@ -252,6 +266,21 @@ namespace NamedayDemo
         private void apbAboutPage_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage));
+        }
+
+        private void apbBold_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void apbItalics_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void apbUnderline_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //private void apbPreviousPage_Click(object sender, RoutedEventArgs e)

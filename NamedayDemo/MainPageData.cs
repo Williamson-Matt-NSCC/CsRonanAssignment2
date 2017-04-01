@@ -54,7 +54,7 @@ namespace NamedayDemo
             get; set;
         }
 
-        private static NoteModel _selectedNote;
+        public static NoteModel _selectedNote;
 
         public event PropertyChangedEventHandler PropertyChanged;
         
