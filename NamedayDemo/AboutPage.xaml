@@ -7,7 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.TopAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="btnExitApp" Label="Exit" Click="btnExitApp_Click"/>
+            </CommandBar.SecondaryCommands>
+            <CommandBar.Content>
+                <TextBlock x:Name="apbAbout" Text=" About" Width="Auto"/>
+            </CommandBar.Content>
+            <AppBarButton x:Name="apbBackToMainPage" Label="Back To Main Page" Icon="Back" Click="apbBackToMainPage_Click"/>
+        </CommandBar>
+    </Page.TopAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <TextBlock x:Name="lblAppDetails" Text=""/>
     </Grid>
 </Page>

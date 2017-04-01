@@ -26,7 +26,7 @@
                 <AppBarButton x:Name="btnExitApp" Label="Exit" Click="btnExitApp_Click"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <AppBarButton x:Name="apbNoteName" Content="{Binding NoteTitle, Mode=OneWay}" Width="Auto" />
+                <TextBlock x:Name="apbNoteName" Text="{Binding NoteTitle, Mode=OneWay}" Width="Auto" />
             </CommandBar.Content>
             <AppBarButton x:Name="btnNewNote" Label="Add" Icon="Add" Click="btnNewNote_Click"/>
             <AppBarButton x:Name="btnEditNote" Label="Edit" Icon="Edit" Click="btnEditNote_Click"/>

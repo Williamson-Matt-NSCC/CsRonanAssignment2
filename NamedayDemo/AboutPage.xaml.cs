@@ -26,5 +26,15 @@ namespace NamedayDemo
         {
             this.InitializeComponent();
         }
+
+        private void apbBackToMainPage_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void btnExitApp_Click(object sender, RoutedEventArgs e)
+        {
+            //exit app gracefully
+        }
     }
 }

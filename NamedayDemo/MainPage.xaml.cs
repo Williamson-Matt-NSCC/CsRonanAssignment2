@@ -139,7 +139,7 @@ namespace NamedayDemo
                     GetNewNote(noteName);
                     Debug.WriteLine("A new Note has been Created.");
                     txtNoteBody.Text = "";
-                    apbNoteName.Content = " Current Note: " + noteName;
+                    apbNoteName.Text = " Current Note: " + noteName;
 
                     //this is the only friggin way to do this, if not, show me!!
                     //without this line the listview doesnt update quick enough 
@@ -183,7 +183,7 @@ namespace NamedayDemo
             if ((lsvNoteList.SelectedIndex != -1) &&  await ConfirmMessageBoxAsync("Delete this Note"))
             {
                 Debug.WriteLine("Note Deleted");
-                apbNoteName.Content = DeselectedTitleValue;
+                apbNoteName.Text = DeselectedTitleValue;
                 txtNoteBody.Text = DeselectedBodyValue;
                 btnDelete.IsEnabled = false;
                 MainPageData.DeleteNote();
