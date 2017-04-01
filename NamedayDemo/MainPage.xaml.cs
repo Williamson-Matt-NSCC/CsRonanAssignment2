@@ -35,6 +35,7 @@ namespace NamedayDemo
             //btnSave.IsEnabled = false;
             //Title.IsEnabled = false;
             txtNoteBody.IsEnabled = false;
+            btnEditNote.IsEnabled = false;
         }
 
         /// <summary>
@@ -186,8 +187,9 @@ namespace NamedayDemo
                 Debug.WriteLine("Note Deleted");
                 apbNoteName.Text = DeselectedTitleValue;
                 txtNoteBody.Text = DeselectedBodyValue;
-                btnDelete.IsEnabled = false;
                 MainPageData.DeleteNote();
+                btnDelete.IsEnabled = false;
+                btnEditNote.IsEnabled = false;
             }
             else
             {
