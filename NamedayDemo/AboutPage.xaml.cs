@@ -25,6 +25,8 @@ namespace NamedayDemo
         public AboutPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            lblAppDetails.Text = "";
         }
 
         private void apbBackToMainPage_Click(object sender, RoutedEventArgs e)

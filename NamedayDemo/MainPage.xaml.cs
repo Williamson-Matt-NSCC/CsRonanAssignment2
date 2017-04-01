@@ -31,6 +31,7 @@ namespace NamedayDemo
         public MainPage()
         {
             InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             //btnSave.IsEnabled = false;
             //Title.IsEnabled = false;
             txtNoteBody.IsEnabled = false;
