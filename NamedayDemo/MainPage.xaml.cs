@@ -196,10 +196,11 @@ namespace NamedayDemo
             }
         }
 
-        private async void btnAboutThisApp_Click(object sender, RoutedEventArgs e)
-        {
-            await InfoMessageBoxAsync("Asynchronous message from Matt Williamson");
-        }
+        //now uses the about page navigation method
+        //private async void btnAboutThisApp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    await InfoMessageBoxAsync("Asynchronous message from Matt Williamson");
+        //}
 
         private void btnExitApp_Click(object sender, RoutedEventArgs e)
         {
@@ -244,5 +245,15 @@ namespace NamedayDemo
         {
 
         }
+
+        private void apbAboutPage_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(AboutPage));
+        }
+
+        //private void apbPreviousPage_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
     }
 }

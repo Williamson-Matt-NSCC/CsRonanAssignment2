@@ -32,10 +32,10 @@ namespace NamedayDemo
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            using (var db = new EFGetStarted.UWP.BloggingContext())
-            {
-                db.Database.Migrate();
-            }
+            //using (var db = new EFGetStarted.UWP.BloggingContext())
+            //{
+            //    db.Database.Migrate();
+            //}
         }
 
         /// <summary>

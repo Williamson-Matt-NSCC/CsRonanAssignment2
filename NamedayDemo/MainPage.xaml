@@ -22,7 +22,7 @@
     <Page.TopAppBar>
         <CommandBar>
             <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="btnAboutThisApp" Label="About" Click="btnAboutThisApp_Click"/>
+                <AppBarButton x:Name="btnAboutThisApp" Label="About" Click="apbAboutPage_Click"/>
                 <AppBarButton x:Name="btnExitApp" Label="Exit" Click="btnExitApp_Click"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
@@ -57,8 +57,6 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBox x:Name="txtNoteBody" TextWrapping="Wrap" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" VerticalAlignment="Stretch" Text="{Binding BodyContent, Mode=TwoWay}" PlaceholderText=""/>
-
         </Grid>
-
     </Grid>
 </Page>

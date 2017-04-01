@@ -135,27 +135,28 @@ namespace NamedayDemo
             fillList();
         }
 
-        ////combined this functionality into the perform note filtering
+        //combined this functionality into the perform note filtering
+        private String _filter;
 
-        //public string Filter
-        //{
-        //    get
-        //    {
-        //        return _filter;
-        //    }
-        //    set
-        //    {
-        //        if (value == _filter)
-        //        {
-        //            return;
-        //        }
-        //        _filter = value;
-        //        PropertyChanged?.Invoke(this,
-        //            new PropertyChangedEventArgs(nameof(Filter)));
-        //        //PerformFiltering();
-        //        PerformNoteFiltering();
-        //    }
-        //}
+        public string Filter
+        {
+            get
+            {
+                return _filter;
+            }
+            set
+            {
+                if (value == _filter)
+                {
+                    return;
+                }
+                _filter = value;
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(Filter)));
+                //PerformFiltering();
+                PerformNoteFiltering(_filter);
+            }
+        }
 
         public async static void Save(string noteBody)
         {
@@ -251,18 +252,23 @@ namespace NamedayDemo
             var files = await query.GetFilesAsync();
             foreach (Windows.Storage.StorageFile file in files)
             {
-                string NoteBody = await Windows.Storage.FileIO.ReadTextAsync(file);
-                string NoteName = file.Name;
-                NoteName = NoteName.Replace(".txt", "");
-                try
+                //the "Files" include the .db files, added this to make sure there werent any inappropriate file taken
+                if (file.FileType != ".db")
                 {
-                    int NoteNumber = Notes.Count + 1;
-                    Notes.Add(new NoteModel(NoteNumber, NoteName, NoteBody));
-                    FilteredNotes.Add(new NoteModel(NoteNumber, NoteName, NoteBody));
-                }
-                catch (Exception err)
-                {
-                    string error = err.Message;
+                    string NoteBody = await Windows.Storage.FileIO.ReadTextAsync(file);
+                    string NoteName = file.Name;
+                    NoteName = NoteName.Replace(".txt", "");
+                    try
+                    {
+                        int NoteNumber = Notes.Count + 1;
+                        Notes.Add(new NoteModel(NoteNumber, NoteName, NoteBody));
+                        FilteredNotes.Add(new NoteModel(NoteNumber, NoteName, NoteBody));
+                    }
+                    catch (Exception err)
+                    {
+                        string error = err.Message;
+                    }
+
                 }
             }
         }
